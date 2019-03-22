@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+
+        <head>
+                
+                <title>TO DO APP</title>
+                
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" rel="stylesheet">
+               
+                <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+               
+                 <style>
+                    body{
+                        text-align: center;
+                    }
+                    .spa{
+                        text-align: left;
+                        margin-left: 33%;
+                    }
+                </style>
+               
+            </head>
+
+
+<body ng-app="myApp" ng-controller="todoCtrl">
+        <div class='animated fadeInLeft'><h1>TO DO</h1></div>
+        <div class='animated fadeInDown'><h1>LIST</h1></div>
+        <div class='animated fadeInRight'><h1>APP</h1></div>
+
+
+<form ng-submit="todoAdd()">
+    <input type="text" ng-model="todoInput" size="50" placeholder="Add New">
+    <input type="submit" value="Add New">
+</form>
+
+<br>
+
+<div class="spa" ng-repeat="x in todoList">
+    <input type="checkbox" ng-model="x.done"> <span ng-bind="x.todoText"></span>
+</div>
+
+<p><button ng-click="remove()">Remove marked</button></p>
+
+<script>
+var app = angular.module('myApp', []); 
+app.controller('todoCtrl', function($scope) {
+    $scope.todoList = [];
+
+    $scope.todoAdd = function() {
+        $scope.todoList.push({todoText:$scope.todoInput, done:false});
+        $scope.todoInput = "";
+    };
+
+    $scope.remove = function() {
+        var oldList = $scope.todoList;
+        $scope.todoList = [];
+        angular.forEach(oldList, function(x) {
+            if (!x.done) $scope.todoList.push(x);
+        });
+    };
+});
+</script>
+
+</body>
+</html>
